@@ -20,7 +20,6 @@ A bash script to modify the plaintext config files
 `Value` is the second part of a key/value set.
 
 
-
 ## Examples
 ### Example 1. Setting the PHP memory limit to 2G
 ```ezconfig.sh ./php.ini set memory_limit = 2G```
@@ -62,7 +61,9 @@ Tip: it's possible to use `ezconfig.sh /etc/hosts set "127.0.0.1 $(hostname)" "\
 
 ## How to install
 Run this command in your terminal:
+
 ```bash <(wget -qO- https://git.io/JUkKl)```
+
 
 ## Notes
 - This script is not an appropriate tool for modifying files that contain multiple key/value sets with identical keys.
