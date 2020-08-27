@@ -29,7 +29,7 @@
 
 version=0.1
 
-filepath=$1 # e.g. /var/file.conf
+firstargument=$1 # e.g. /var/file.conf
 operation=$2 # set|reset|autoset|autoreset
 key=$3 # e.g. configkey1
 connector=$4 # e.g. =
@@ -37,13 +37,16 @@ value=$5 # e.g. ON
 
 
 if [[ "${operation}" =~ ^('set'|'reset'|'autoset'|'autoreset')$ ]]; then
+	
+	filepath="${firstargument}"
+	
 	# Too few arguments or not separated (e.g. key=value).
 	if [ ! $connector ]; then
 		echo 'Error: too few arguments are provided! This may be because the key and value are not spaced out.'
 		echo 'Examples:'
 		echo 'Incorrect -> key=value'
 		echo 'Correct -> key = value'
-    echo 'For more information visit https://github.com/jasongitaccount/ezconfig.sh'
+		echo 'For more information visit https://github.com/jasongitaccount/ezconfig.sh'
 		exit
 	fi
 
@@ -137,12 +140,13 @@ if [[ "${operation}" =~ ^('set'|'reset'|'autoset'|'autoreset')$ ]]; then
 	#cat "${filepath}"
 	cp /var/test.conf.bkup /var/test.conf
 
-elif [[ "${operation}" =~ ^('-v'|'--version'|'v'|'version')$ ]]; then	
+elif [[ "${firstargument}" =~ ^('-v'|'--version'|'v'|'version')$ ]]; then	
 	echo "Version: ${version}"
 	exit
-elif [[ "${operation}" =~ ^('-h'|'--help'|'h'|'help')$ ]]; then	
+elif [[ "${firstargument}" =~ ^('-h'|'--help'|'h'|'help')$ ]]; then	
 	echo 'Usage example: ezconfig.sh /var/file.conf set configkey1 = ON'
 	echo 'The resulf of the example above would be setting "configkey1 = ON" in the file /var/file.conf'
 	echo 'For more information visit https://github.com/jasongitaccount/ezconfig.sh'
 	exit
 fi
+
