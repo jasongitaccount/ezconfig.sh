@@ -69,5 +69,5 @@ Run this command in your terminal:
 - This script is not an appropriate tool for modifying files that can contain multiple key/value sets with identical keys.
 - Has only been tested on Ubuntu 20.04.
 - If you are specifying the connector, make sure to put space around it (`key=val` is INCORRECT. Should be ` key = val`)
-- Use it with caution!
+- Use this script with caution!
 
