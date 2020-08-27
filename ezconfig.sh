@@ -143,7 +143,7 @@ if [[ "${operation}" =~ ^('set'|'reset'|'autoset'|'autoreset')$ ]]; then
 elif [[ "${firstargument}" =~ ^('-v'|'--version'|'v'|'version')$ ]]; then	
 	echo "Version: ${version}"
 	exit
-elif [[ "${firstargument}" =~ ^('-h'|'--help'|'h'|'help')$ ]]; then	
+else
 	echo 'Usage example: ezconfig.sh /var/file.conf set configkey1 = ON'
 	echo 'The resulf of the example above would be setting "configkey1 = ON" in the file /var/file.conf'
 	echo 'For more information visit https://github.com/jasongitaccount/ezconfig.sh'
