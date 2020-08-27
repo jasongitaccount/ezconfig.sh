@@ -31,4 +31,3 @@ chmod +x /usr/local/bin/ezconfig.sh
 echo 'Installation completed!'
 echo 'Start by typing ezconfig.sh'
 
-rm -- "$0"
