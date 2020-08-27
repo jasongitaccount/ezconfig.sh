@@ -32,7 +32,7 @@ Output:
 > Matches after the processing:
 401:memory_limit=2G
 ```
-Tip: that you can put quotations around the arguments to modify the spacing! For example `ezconfig.sh ./php.ini set memory_limit ' = ' 2G` would generate `memory_limit = 2G`.
+Tip: you can put quotations around the arguments to modify the spacing! For example `ezconfig.sh ./php.ini set memory_limit ' = ' 2G` would generate `memory_limit = 2G`.
 
 ### Example 2. Setting the SSH port number to 22 in the config file /etc/ssh/sshd_config
 ```ezconfig.sh /etc/ssh/sshd_config set Port 5492```
@@ -57,8 +57,15 @@ Note that here we skipped the `Connector` because we needed a space between "Por
 ```
 Since here we have two key/value sets with identical keys ("127.0.0.1"), you need to confirm whether it's okay to update the second instance. If you wish to automatically confirm such actions, you can use `autoset` instead of `set`.
 
-Tip: we could use `ezconfig.sh /etc/hosts set "127.0.0.1 $(hostname)" "\n"` to search for the presence of both the key (127.0.0.1) and the value (the output of $(hostname)) together to avoid overwriting other hostnames that share the same IP. However, that usage is not recommended as this script is not an appropriate tool for modifying files that contain multiple key/value sets with identical keys.  
+Tip: it's possible to use `ezconfig.sh /etc/hosts set "127.0.0.1 $(hostname)" "\n"` to search for the presence of both the key (127.0.0.1) and the value (the output of $(hostname)) together to avoid overwriting other hostnames that share the same IP. However, that usage is not recommended. 
 
 
 ## How to install
+Run this command in your terminal:
 ```bash <(wget -qO- https://git.io/JUkKl)```
+
+## Notes
+- This script is not an appropriate tool for modifying files that contain multiple key/value sets with identical keys.
+- Has only been tested on Ubuntu 20.04.
+- Use it with caution!
+
