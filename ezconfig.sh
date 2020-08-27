@@ -145,7 +145,7 @@ elif [[ "${firstargument}" =~ ^('-v'|'--version'|'v'|'version')$ ]]; then
 	exit
 else
 	echo 'Usage example: ezconfig.sh /var/file.conf set configkey1 = ON'
-	echo 'The resulf of the example above would be setting "configkey1 = ON" in the file /var/file.conf'
+	echo 'The example above would set "configkey1 = ON" in the file /var/file.conf'
 	echo 'For more information visit https://github.com/jasongitaccount/ezconfig.sh'
 	exit
 fi
