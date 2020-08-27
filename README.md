@@ -31,7 +31,7 @@ Output:
 > Matches after the processing:
 401:memory_limit=2G
 ```
-Tip: you can put quotations around the arguments to modify the spacing! For example `ezconfig.sh ./php.ini set memory_limit ' = ' 2G` would generate `memory_limit = 2G`.
+Tip: you can put quotations around the arguments to modify the spacing! For example `ezconfig.sh ./php.ini set memory_limit ' = ' 2G` would generate `memory_limit = 2G`. Notice that line numbers of the matches are shown in the output.
 
 ### Example 2. Setting the SSH port number to 22 in the config file /etc/ssh/sshd_config
 ```ezconfig.sh /etc/ssh/sshd_config set Port 5492```
