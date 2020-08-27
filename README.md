@@ -1,5 +1,5 @@
 # ezconfig.sh
-A bash script to modify the plaintext config files
+A bash script to modify the plaintext config files with key/value sets
 
 ## Basic usage
 ```ezconfig.sh (File) (Operation) (Key) [Connector] (Value)```
