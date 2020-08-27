@@ -27,7 +27,7 @@
 # Usage example: ./thisscript.sh /var/file.conf set configkey1 = ON
 # The resulf of the example above would be setting "configkey1 = ON" in the file /var/file.conf
 
-version=0.1.3
+version=0.1.4
 
 firstargument=$1 # e.g. /var/file.conf
 operation=$2 # set|reset|autoset|autoreset
@@ -39,6 +39,9 @@ value=$5 # e.g. ON
 if [[ "${operation}" =~ ^('set'|'reset'|'autoset'|'autoreset')$ ]]; then
 	
 	filepath="${firstargument}"
+	
+	# Escape "/" in value
+	value=$(echo "${value}" | sed 's/\//\\\//')
 	
 	# Too few arguments or not separated (e.g. key=value).
 	if [ ! $connector ]; then
