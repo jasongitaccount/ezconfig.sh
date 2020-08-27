@@ -27,7 +27,7 @@
 # Usage example: ./thisscript.sh /var/file.conf set configkey1 = ON
 # The resulf of the example above would be setting "configkey1 = ON" in the file /var/file.conf
 
-version=0.1.1
+version=0.1.2
 
 firstargument=$1 # e.g. /var/file.conf
 operation=$2 # set|reset|autoset|autoreset
@@ -59,8 +59,7 @@ if [[ "${operation}" =~ ^('set'|'reset'|'autoset'|'autoreset')$ ]]; then
 	# Colored grep matches for output
 	matches_pretty=$(grep -n --color=always "^[#[:space:]]*${key}[^\.[:alnum:]_-]" "${filepath}")
 	# Grep matches without colors for processing
-	#matches_raw=$(echo "${matches_pretty}" | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g")
-	matches_raw=$(grep -n "^[#[:space:]]*${key}[^\.[:alnum:]_-]" "${filepath}")
+	matches_raw=$(echo "${matches_pretty}" | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g")
 	# Number of matching lines
 	matches_count=$(echo -n "${matches_raw}" | grep -c '^')
 	# Matches that are not commented out
@@ -138,7 +137,6 @@ if [[ "${operation}" =~ ^('set'|'reset'|'autoset'|'autoreset')$ ]]; then
 	echo "> Matches after the processing:"
 	grep --color=always -n "^[[:space:]]*${key}[^\.[:alnum:]_-]" "${filepath}"
 	
-	#cat "${filepath}"
 	cp /var/test.conf.bkup /var/test.conf
 
 elif [[ "${firstargument}" =~ ^('-v'|'--version'|'v'|'version')$ ]]; then	
