@@ -133,7 +133,6 @@ if [[ "${operation}" =~ ^('set'|'reset'|'autoset'|'autoreset')$ ]]; then
 	else
 		# If the file doesn't have a new line character at the end, we should add one before appending
 		lasttwobytes=$(tail --byte 2 "${filepath}" | xxd -p)
-		echo "${lasttwobytes}"
 		# Check if there is an LF (\n) character at the end of the file
 		if [[ ! "${lasttwobytes}" =~ ('0a')$ ]]; then
 			# Check if there is an CRLF (\r\n) character in the file
