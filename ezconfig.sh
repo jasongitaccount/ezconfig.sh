@@ -27,7 +27,7 @@
 # Usage example: ./thisscript.sh /var/file.conf set configkey1 = ON
 # The resulf of the example above would be setting "configkey1 = ON" in the file /var/file.conf
 
-version=0.1.4
+version=0.1.5
 
 firstargument=$1 # e.g. /var/file.conf
 operation=$2 # set|reset|autoset|autoreset
@@ -39,9 +39,6 @@ value=$5 # e.g. ON
 if [[ "${operation}" =~ ^('set'|'reset'|'autoset'|'autoreset')$ ]]; then
 	
 	filepath="${firstargument}"
-	
-	# Escape "/" in value
-	value=$(echo "${value}" | sed 's/\//\\\//')
 	
 	# Too few arguments or not separated (e.g. key=value).
 	if [ ! $connector ]; then
@@ -92,14 +89,13 @@ if [[ "${operation}" =~ ^('set'|'reset'|'autoset'|'autoreset')$ ]]; then
 			else
 				# Find the file line number of the last uncommented match and update it
 				linenum=$( echo "${uncommented_matches}" | tail -1 | cut -d: -f1 )
-				sed -i "${linenum}s/^[[:space:]]*\(${key}\)[^\.[:alnum:]_-].*$/\1${connector}${value}/" "${filepath}"
-
+				sed -i  "${linenum}"s$'\001'"^[[:space:]]*\(${key}\)[^\.[:alnum:]_-].*$"$'\001'"\1${connector}${value}"$'\001' "${filepath}"
 			fi
 		# If there is only one match (must be uncommented), update it
 		else
 			# Find the file line number of the uncommented match and update it
 			linenum=$( echo "${uncommented_matches}" | cut -d: -f1 )
-			sed -i "s/^[[:space:]]*\(${key}\)[^\.[:alnum:]_-].*$/\1${connector}${value}/" "${filepath}"
+			sed -i  "${linenum}"s$'\001'"^[[:space:]]*\(${key}\)[^\.[:alnum:]_-].*$"$'\001'"\1${connector}${value}"$'\001' "${filepath}"
 		fi
 	# If there is no uncommented match present and the operation is "reset"/"autoreset", update the 
 	# last commented out line
@@ -129,8 +125,7 @@ if [[ "${operation}" =~ ^('set'|'reset'|'autoset'|'autoreset')$ ]]; then
 		else
 			# Find the file line number of the last uncommented match and update it
 			linenum=$( echo "${matches_raw}" | tail -1 | cut -d: -f1 )
-			sed -i "${linenum}s/^[[:space:]]*#[[:space:]]*\(${key}\)[^\.[:alnum:]_-].*$/\1${connector}${value}/" "${filepath}"
-
+			sed -i  "${linenum}"s$'\001'"^[[:space:]]*#[[:space:]]*\(${key}\)[^\.[:alnum:]_-].*$"$'\001'"\1${connector}${value}"$'\001' "${filepath}"
 		fi
 	# The operation is "set"/"autoset", so append to the file
 	else
