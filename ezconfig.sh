@@ -27,7 +27,7 @@
 # Usage example: ./thisscript.sh /var/file.conf set configkey1 = ON
 # The resulf of the example above would be setting "configkey1 = ON" in the file /var/file.conf
 
-version=0.1
+version=0.1.1
 
 firstargument=$1 # e.g. /var/file.conf
 operation=$2 # set|reset|autoset|autoreset
@@ -59,11 +59,12 @@ if [[ "${operation}" =~ ^('set'|'reset'|'autoset'|'autoreset')$ ]]; then
 	# Colored grep matches for output
 	matches_pretty=$(grep -n --color=always "^[#[:space:]]*${key}[^\.[:alnum:]_-]" "${filepath}")
 	# Grep matches without colors for processing
-	matches_raw=$(echo "${matches_pretty}" | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g")
+	#matches_raw=$(echo "${matches_pretty}" | sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g")
+	matches_raw=$(grep -n "^[#[:space:]]*${key}[^\.[:alnum:]_-]" "${filepath}")
 	# Number of matching lines
 	matches_count=$(echo -n "${matches_raw}" | grep -c '^')
 	# Matches that are not commented out
-	uncommented_matches=$(echo "${matches_raw}" | grep "^[[:digit:]]\:[[:space:]]*${key}[^\.[:alnum:]_-]")
+	uncommented_matches=$(echo "${matches_raw}" | grep "^[[:digit:]]*\:[[:space:]]*${key}[^\.[:alnum:]_-]")
 	# Number of matches that are not commented out
 	uncommented_matches_count=$(echo -n "${uncommented_matches}" | grep -c '^')
 	
@@ -131,7 +132,7 @@ if [[ "${operation}" =~ ^('set'|'reset'|'autoset'|'autoreset')$ ]]; then
 		fi
 	# The operation is "set"/"autoset", so append to the file
 	else
-		printf "\r${key}${connector}${value}\n" >> "${filepath}"
+		printf "${key}${connector}${value}" >> "${filepath}"
 	fi
 	
 	echo "> Matches after the processing:"
@@ -145,7 +146,7 @@ elif [[ "${firstargument}" =~ ^('-v'|'--version'|'v'|'version')$ ]]; then
 	exit
 else
 	echo 'Usage example: ezconfig.sh /var/file.conf set configkey1 = ON'
-	echo 'The example above would set "configkey1 = ON" in the file /var/file.conf'
+	echo 'The resulf of the example above would be setting "configkey1 = ON" in the file /var/file.conf'
 	echo 'For more information visit https://github.com/jasongitaccount/ezconfig.sh'
 	exit
 fi
