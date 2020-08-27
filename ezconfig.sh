@@ -27,7 +27,7 @@
 # Usage example: ./thisscript.sh /var/file.conf set configkey1 = ON
 # The resulf of the example above would be setting "configkey1 = ON" in the file /var/file.conf
 
-version=0.1.2
+version=0.1.3
 
 firstargument=$1 # e.g. /var/file.conf
 operation=$2 # set|reset|autoset|autoreset
@@ -131,7 +131,20 @@ if [[ "${operation}" =~ ^('set'|'reset'|'autoset'|'autoreset')$ ]]; then
 		fi
 	# The operation is "set"/"autoset", so append to the file
 	else
-		printf "${key}${connector}${value}" >> "${filepath}"
+		# If the file doesn't have a new line character at the end, we should add one before appending
+		lasttwobytes=$(tail --byte 2 "${filepath}" | xxd -p)
+		echo "${lasttwobytes}"
+		# Check if there is an LF (\n) character at the end of the file
+		if [[ ! "${lasttwobytes}" =~ ('0a')$ ]]; then
+			# Check if there is an CRLF (\r\n) character in the file
+			if [[ $(grep -Uc $'\015' "${filepath}") -gt 0 ]]; then
+				echo -e "\r\n" >> "${filepath}"
+			else
+				echo -e "\n" >> "${filepath}"
+			fi
+		fi
+		
+		echo -e "${key}${connector}${value}" >> "${filepath}"
 	fi
 	
 	echo "> Matches after the processing:"
