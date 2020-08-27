@@ -66,7 +66,7 @@ Run this command in your terminal:
 
 
 ## Notes
-- This script is not an appropriate tool for modifying files that contain multiple key/value sets with identical keys.
+- This script is not an appropriate tool for modifying files that can contain multiple key/value sets with identical keys.
 - Has only been tested on Ubuntu 20.04.
 - Use it with caution!
 
