@@ -175,8 +175,6 @@ if [[ "${operation}" =~ ^('add'|'set'|'reset'|'autoset'|'autoreset')$ ]]; then
 	
 	echo "> Matches after the processing:"
 	grep --color=always -nP "^[#[:blank:]]*${key_trimmed}${_regex_afterkey_trimmed}" "${filepath}"
-	
-	cp /var/test.conf.bkup /var/test.conf
 
 elif [[ "${firstargument}" =~ ^('-v'|'--version'|'v'|'version')$ ]]; then	
 	echo "Version: ${version}"
