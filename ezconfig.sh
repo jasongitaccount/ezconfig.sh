@@ -23,9 +23,6 @@
 # SOFTWARE.
 
 # For more information visit https://github.com/jasongitaccount/ezconfig.sh
-#
-# Usage example: ./thisscript.sh /var/file.conf set configkey1 = ON
-# The resulf of the example above would be setting "configkey1 = ON" in the file /var/file.conf
 
 version=0.2.1
 
