@@ -7,9 +7,9 @@ A bash script to modify the plaintext config files with key/value sets
 `File` is the plaintext configuration file you would like to modify.
 
 `Operation` can be one of the following options:
-
-  - `set` first attempts to update the last preexisting key/value that is NOT commented out by `#`. If a matching key does not exist, a new key/value set will be added to the end of the file.
-  - `reset` is like `set` but first attempts to uncomment and modify the already available key/value set in place if they are commented out by `#`.
+  - `add` attemps to add a key/value set to the end of the file if it doesn't already exist. If the set exists, it will be overwritten. Most useful when the key is not supposed to be unique (e.g. adding `127.0.0.1  secondlocal` to the `hosts` file)
+  - `set` first attempts to update the value of the last preexisting key that is NOT commented out by `#`. If a matching key does not exist, a new key/value set will be added to the end of the file. Most useful when the key is supposed to be unique (e.g. setting the SSH port number)
+  - `reset` is like `set` but first attempts to uncomment and modify the value of the already available key in place if they are commented out by `#`.
   - `autoset` is like `set` but does not prompt you if finds multiple matches. Instead, modifies the last one.
   - `autoreset` is like `reset` does not prompt you if finds multiple matches. Instead, modifies the last one.
 
@@ -80,8 +80,33 @@ Output:
 ```
 Since here we have two key/value sets with identical keys ("127.0.0.1"), you need to confirm whether it's okay to update the second instance (since we used `autoset`, that was confirmed automatically).
 
-Tip: it's possible to use `ezconfig.sh /etc/hosts set "127.0.0.1 $(hostname)" "\n"` to avoid overwriting other hostnames that share the same IP. However, this usage is not recommended. 
-
+In case you need to *add* `127.0.0.1 NewServer` instead of *setting* the last instance of `127.0.0.1` to `NewServer`, use the `add` operation. It adds the key/value set if that set doesn't already exist. `add` operation does not require any confirmation.
+```
+hostnamectl set-hostname "NewServer"
+ezconfig.sh /etc/hosts add 127.0.0.1 "$(hostname)"
+```
+Output:
+```
+> Matches before the processing:
+9:127.0.0.1 localhost
+19:127.0.0.1     OldServer
+> Matches after the processing:
+9:127.0.0.1 localhost
+19:127.0.0.1     OldServer
+20:127.0.0.1 NewServer
+```
+If we wanted to edit the spacing of our preexisting set at line 9 (`127.0.0.1 localhost`) we could run the following command:
+```
+ezconfig.sh /etc/hosts add 127.0.0.1 '     ' OldServer
+```
+Output:
+```
+> Matches before the processing:
+9:127.0.0.1 localhost
+19:127.0.0.1     OldServer
+> Matches after the processing:
+9:127.0.0.1     localhost
+19:127.0.0.1     OldServer
 
 ## How to install
 Run this command in your terminal:
