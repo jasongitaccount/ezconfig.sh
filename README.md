@@ -97,7 +97,7 @@ Output:
 ```
 If we wanted to edit the spacing of our preexisting set at line 9 (`127.0.0.1 localhost`) we could run the following command:
 ```
-ezconfig.sh /etc/hosts add 127.0.0.1 '     ' OldServer
+ezconfig.sh /etc/hosts add 127.0.0.1 '     ' localhost
 ```
 Output:
 ```
@@ -107,6 +107,7 @@ Output:
 > Matches after the processing:
 9:127.0.0.1     localhost
 19:127.0.0.1     OldServer
+```
 
 ## How to install
 Run this command in your terminal:
