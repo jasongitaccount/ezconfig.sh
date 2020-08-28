@@ -30,7 +30,7 @@
 version=0.2.1
 
 firstargument=$1 # e.g. /var/file.conf
-operation=$2 # set|reset|autoset|autoreset
+operation=$2 # add|set|reset|autoset|autoreset
 key=$3 # e.g. configkey1
 connector=$4 # e.g. =
 value=$5 # e.g. ON
