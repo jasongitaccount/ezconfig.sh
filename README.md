@@ -36,6 +36,10 @@ Tip: you can put quotations around the arguments to modify the spacing! For exam
 ### Example 2. Setting the SSH port number to 22 in the config file /etc/ssh/sshd_config
 By default, the port number line in /etc/ssh/sshd_config is commented out (`#Port 22`). So, instead of using `set` that adds the setting to the end of the file, we can use `reset` to uncomment and modify the preexisting setting in place (if `reset` cannot find a match, it will act like `set`).
 
+```ezconfig.sh /etc/ssh/sshd_config reset Port ' ' 5492```
+
+Or, since the default `Connector` is a space character, simply...
+
 ```ezconfig.sh /etc/ssh/sshd_config reset Port 5492```
 
 Output:
@@ -44,12 +48,12 @@ Output:
 15:#Port 22
 > I can uncomment and modify the matched instance. Would you like to continue? (y/n)
 ```
-Now we hit the `y` key to agree (if you wish to automatically confirm such actions, you can use `autoreset` instead of `reset`)
+Now we hit the `y` key to agree (if you wish to automatically confirm such actions, you can use `autoreset` instead of `reset`). 
 ```
 > Matches after the processing:
 15:Port 5492
 ```
-Note that here we skipped the `Connector` because we needed a space between "Port" and "5492" and the default connector is a space character. We could explicitly specify the connector:  ```ezconfig.sh /etc/ssh/sshd_config set Port ' ' 5492```.
+The reason `reset` prompts you is that it cannot distinguish between a **comment** and a **commented out key/value set**. In this case, a line that contains `#Port should be set below` is as likely to be affected as `#Port 22` and you may lose the content of the comments.
 
 ### Example 3. Exporting variables
 
