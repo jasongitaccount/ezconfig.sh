@@ -23,6 +23,9 @@
 # SOFTWARE.
 
 # For more information visit https://github.com/jasongitaccount/ezconfig.sh
+#
+# Usage example: ./thisscript.sh /var/file.conf set configkey1 = ON
+# The resulf of the example above would be setting "configkey1 = ON" in the file /var/file.conf
 
 version=0.2.1
 
@@ -101,7 +104,7 @@ if [[ "${operation}" =~ ^('add'|'set'|'reset'|'autoset'|'autoreset')$ ]]; then
 		# If there are multiple matches (at least one of them uncommented), update the last uncommented match
 		if [[ "${matches_count}" -gt 1 ]]; then
 			# If this is not an automated operation, prompt for confirmation
-			if [[ ! "${operation}" =~ ^('autoset'|'autoreset')$ ]]; then
+			if [[ ! "${operation}" =~ ^('add'|'autoset'|'autoreset')$ ]]; then
 				read -p "> There are ${matches_count} matches. I can modify only the last uncommented instance. Would you like to continue? (y/n) " -n 1 -r prompt_reply
 			else
 				prompt_reply='Y'
@@ -130,7 +133,7 @@ if [[ "${operation}" =~ ^('add'|'set'|'reset'|'autoset'|'autoreset')$ ]]; then
 		echo "${matches_pretty}"
 		
 		# If this is not an automated operation, prompt for confirmation
-		if [[ ! "${operation}" =~ ^('autoset'|'autoreset')$ ]]; then
+		if [[ ! "${operation}" =~ ^('autoreset')$ ]]; then
 			# If there are multiple matches (must be commented out)
 			if [[ "${matches_count}" -gt 1 ]]; then
 				# Ask user for confirmation
