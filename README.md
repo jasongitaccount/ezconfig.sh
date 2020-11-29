@@ -11,7 +11,7 @@ A bash script to modify the plaintext config files with key/value sets
   - `set` first attempts to update the value of the last preexisting key that is NOT commented out by `#`. If a matching key does not exist, a new key/value set will be added to the end of the file. Most useful when the key is supposed to be unique (e.g. setting the SSH port number)
   - `reset` is like `set` but first attempts to uncomment and modify the value of the already available key in place if they are commented out by `#`.
   - `autoset` is like `set` but does not prompt you if finds multiple matches. Instead, modifies the last one.
-  - `autoreset` is like `reset` does not prompt you if finds multiple matches. Instead, modifies the last one.
+  - `autoreset` is like `reset` does not prompt you to confirm the replacement and if finds multiple matches, modifies the last one.
 
 `Key` is the first part of a key/value set.
 
